@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 
+import type { Role } from "../../shared/types/shared.types.js";
 import type { UserDocument } from "./users.types.js";
 
 export const UserSchema = new Schema<UserDocument>({
@@ -9,6 +10,11 @@ export const UserSchema = new Schema<UserDocument>({
   },
   passwordHash: {
     type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ["guest", "admin"] satisfies Role[],
     required: true,
   },
 });
