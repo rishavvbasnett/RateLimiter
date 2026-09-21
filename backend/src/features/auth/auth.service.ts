@@ -8,20 +8,23 @@ import { TokenPayload } from "../../shared/types/shared.types.js";
 
 const login = async (credential: Credential) => {
   const { username, password } = credential;
-  const foundUser = await User.findOne({ username }).exec();
+  const foundUser = await User.findOne({ username });
+
   if (!foundUser) throw new UnauthorizedError("Invalid username or password");
   const passwordIsCorrect = await bcrypt.compare(
     password,
     foundUser.passwordHash,
   );
+
   if (!passwordIsCorrect)
     throw new UnauthorizedError("Invalid username or password");
+
   const userObjectForToken: TokenPayload = {
     id: foundUser._id.toString(),
     role: foundUser.role,
   };
   const token = jwt.sign(userObjectForToken, JWT_SECRET, {
-    algorithms: ["HS256"],
+    algorithm: "HS256",
   });
   return {
     token,

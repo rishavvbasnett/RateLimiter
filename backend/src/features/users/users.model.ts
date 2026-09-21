@@ -7,6 +7,7 @@ export const UserSchema = new Schema<UserDocument>({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   passwordHash: {
     type: String,

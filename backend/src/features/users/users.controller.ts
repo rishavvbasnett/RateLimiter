@@ -7,7 +7,7 @@ import userService from "./users.service.js";
 export const createOne = asyncHandler(async (req: Request, res: Response) => {
   const validUserInput = UserInputSchema.parse(req.body);
   const createdUser = await userService.createOne(validUserInput);
-  res.json(userService.mapToDto(createdUser));
+  res.status(201).json(userService.mapToDto(createdUser));
 });
 
 export const getOne = asyncHandler(async (req: Request, res: Response) => {
