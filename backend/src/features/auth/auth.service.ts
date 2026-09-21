@@ -4,6 +4,7 @@ import User from "../users/users.model.js";
 import bcrypt from "bcrypt";
 import { JWT_SECRET } from "../../shared/config/env.js";
 import type { Credential } from "./auth.types.js";
+import { TokenPayload } from "../../shared/types/shared.types.js";
 
 const login = async (credential: Credential) => {
   const { username, password } = credential;
@@ -15,7 +16,7 @@ const login = async (credential: Credential) => {
   );
   if (!passwordIsCorrect)
     throw new UnauthorizedError("Invalid username or password");
-  const userObjectForToken = {
+  const userObjectForToken: TokenPayload = {
     id: foundUser._id.toString(),
     role: foundUser.role,
   };

@@ -80,7 +80,7 @@ const deleteOne = async (id: IdParam): Promise<UserDocument> => {
 
 const mapToDto = (userDocument: UserDocument): UserDto => {
   return {
-    _id: userDocument._id.toString(),
+    id: userDocument._id.toString(),
     username: userDocument.username,
     role: userDocument.role,
   };

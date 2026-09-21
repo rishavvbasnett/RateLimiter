@@ -1,11 +1,21 @@
-import type { ErrorRequestHandler } from "express";
+import type {
+  ErrorRequestHandler,
+  NextFunction,
+  Request,
+  Response,
+} from "express";
 import { MongoServerError } from "mongodb";
 import mongoose from "mongoose";
 import { z } from "zod";
 
 import { HttpError } from "../utils/errorClasses.js";
 
-export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+export const errorHandler: ErrorRequestHandler = (
+  err,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   if (err instanceof HttpError) {
     return res.status(err.statusCode).json({
       error: err.message,

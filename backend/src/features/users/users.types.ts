@@ -12,7 +12,7 @@ export interface UserDocument extends Document {
 }
 
 export interface UserDto {
-  _id: string;
+  id: string;
   username: string;
   role: Role;
 }

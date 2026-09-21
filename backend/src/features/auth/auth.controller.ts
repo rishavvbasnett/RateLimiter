@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../shared/middlewares/asyncHandler.js";
+import asyncHandler from "../../shared/middlewares/asyncHandler.js";
 import authService from "./auth.service.js";
 import { CredentialSchema } from "./auth.validation.js";
 

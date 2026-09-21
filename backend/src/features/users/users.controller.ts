@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../../shared/middlewares/asyncHandler.js";
+import asyncHandler from "../../shared/middlewares/asyncHandler.js";
 import { IdParamSchema } from "../../shared/validation/shared.validation.js";
 import { UserInputSchema, UserUpdateSchema } from "./users.validation.js";
 import userService from "./users.service.js";
