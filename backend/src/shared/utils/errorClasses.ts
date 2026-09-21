@@ -33,7 +33,7 @@ export class ItemNotFoundError extends HttpError {
   }
 }
 
-export class TooManyRequests extends HttpError {
+export class TooManyRequestsError extends HttpError {
   constructor(message = "Too many requests") {
     super(message, 429);
   }

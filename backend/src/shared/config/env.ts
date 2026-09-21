@@ -8,3 +8,4 @@ if (!jwtSecret) {
 
 export const JWT_SECRET = jwtSecret;
 export const SALT_ROUNDS = process.env.SALT_ROUNDS;
+export const REDIS_URL = process.env.REDIS_URL;
