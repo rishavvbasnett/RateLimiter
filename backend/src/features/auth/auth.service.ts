@@ -20,7 +20,9 @@ const login = async (credential: Credential) => {
     id: foundUser._id.toString(),
     role: foundUser.role,
   };
-  const token = jwt.sign(userObjectForToken, JWT_SECRET);
+  const token = jwt.sign(userObjectForToken, JWT_SECRET, {
+    algorithms: ["HS256"],
+  });
   return {
     token,
     user: foundUser,
