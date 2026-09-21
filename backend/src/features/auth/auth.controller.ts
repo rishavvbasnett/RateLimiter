@@ -4,8 +4,15 @@ import { CredentialSchema } from "./auth.validation.js";
 
 const login = asyncHandler(async (req, res, next) => {
   const validCredential = CredentialSchema.parse(req.body);
-  const token = await authService.login(validCredential);
-  res.json(token);
+  const { token, user } = await authService.login(validCredential);
+  res.json({
+    accessToken: token,
+    user: {
+      id: user._id.toString(),
+      username: user.username,
+      role: user.role,
+    },
+  });
 });
 
 const authController = {

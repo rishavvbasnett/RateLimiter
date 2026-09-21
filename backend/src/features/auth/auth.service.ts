@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { JWT_SECRET } from "../../shared/config/env.js";
 import type { Credential } from "./auth.types.js";
 
-const login = async (credential: Credential): Promise<string> => {
+const login = async (credential: Credential) => {
   const { username, password } = credential;
   const foundUser = await User.findOne({ username }).exec();
   if (!foundUser) throw new UnauthorizedError("Invalid username or password");
@@ -20,7 +20,10 @@ const login = async (credential: Credential): Promise<string> => {
     role: foundUser.role,
   };
   const token = jwt.sign(userObjectForToken, JWT_SECRET);
-  return token;
+  return {
+    token,
+    user: foundUser,
+  };
 };
 
 const authService = {

@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import userRouter from "./features/users/users.routes.js";
 import { errorHandler } from "./shared/middlewares/errorHandler.js";
-import authRouter from "./features/auth/auth.router.js";
+import authRouter from "./features/auth/auth.routes.js";
 
 const app = express();
 
