@@ -1,10 +1,9 @@
-import jwt from "jsonwebtoken";
 import { UnauthorizedError } from "../../shared/utils/errorClasses.js";
 import User from "../users/users.model.js";
 import bcrypt from "bcrypt";
-import { JWT_SECRET } from "../../shared/config/env.js";
 import type { Credential } from "./auth.types.js";
-import { TokenPayload } from "../../shared/types/shared.types.js";
+import type { AccessTokenPayload } from "../../shared/types/shared.types.js";
+import { generateAccessToken, generateRefreshToken } from "./generateTokens.js";
 
 const login = async (credential: Credential) => {
   const { username, password } = credential;
@@ -19,16 +18,21 @@ const login = async (credential: Credential) => {
   if (!passwordIsCorrect)
     throw new UnauthorizedError("Invalid username or password");
 
-  const userObjectForToken: TokenPayload = {
+  const userObjectForToken: AccessTokenPayload = {
     id: foundUser._id.toString(),
     role: foundUser.role,
   };
-  const token = jwt.sign(userObjectForToken, JWT_SECRET, {
-    algorithm: "HS256",
-  });
+  const accessToken = generateAccessToken(userObjectForToken);
+  const refreshToken = await generateRefreshToken(foundUser._id.toString());
+
   return {
-    token,
-    user: foundUser,
+    accessToken,
+    refreshToken,
+    user: {
+      id: foundUser._id.toString(),
+      username: foundUser.username,
+      role: foundUser.role,
+    },
   };
 };
 

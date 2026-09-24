@@ -1,13 +1,13 @@
 import z from "zod";
 import {
   IdParamSchema,
-  TokenPayloadSchema,
+  AccessTokenPayloadSchema,
 } from "../validation/shared.validation.js";
 import type { Request } from "express";
 
 export type Role = "guest" | "admin";
 export type IdParam = z.infer<typeof IdParamSchema>["id"];
-export type TokenPayload = z.infer<typeof TokenPayloadSchema>;
+export type AccessTokenPayload = z.infer<typeof AccessTokenPayloadSchema>;
 
 export interface RateLimitOptions {
   maxRequests: number;
